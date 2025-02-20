@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Countries } from "../interfaces/countries-responses.interface";
+import { CountriesApi } from "../api/countries-api";
 
 export class Student {
   id: number;
@@ -14,7 +16,12 @@ export class Student {
     this._isValid = validation;
   }
 
-  constructor(id: number, name: string, age: number) {
+  constructor(
+    id: number,
+    name: string,
+    age: number,
+    private http: CountriesApi
+  ) {
     //No mas de tres parametros. Caso contrario, mandar un lista
     this.id = id;
     this.name = name;
@@ -31,12 +38,19 @@ export class Student {
   }
 
   async getAllCountries() {
-    const { data } = await axios.get("https://restcountries.com/v3.1/all");
+    const { data } = await axios.get<Countries[]>(
+      "https://restcountries.com/v3.1/all"
+    );
     return data;
+  }
+
+  async getCountries() {
+    const countries = await this.http.getAllCountries();
+    console.log("🚀 ~ getCountries ~ countries:", countries);
   }
 }
 
-export const gustavo = new Student(1, "Gustavo", 29);
+export const gustavo = new Student(1, "Gustavo", 29, new CountriesApi());
 // gustavo.isValid;
 // // console.log("🚀 ~ gustavo:", await gustavo.getScore());
 // gustavo.getScore().then((score: number) => {
