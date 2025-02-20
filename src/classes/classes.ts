@@ -1,6 +1,10 @@
 import axios from "axios";
 import { Countries } from "../interfaces/countries-responses.interface";
-import { CountriesApi } from "../api/countries-api";
+import {
+  CountriesApiAxios,
+  CountriesApiFetch,
+  HttpAdapter,
+} from "../api/countries-api";
 
 export class Student {
   id: number;
@@ -20,7 +24,7 @@ export class Student {
     id: number,
     name: string,
     age: number,
-    private http: CountriesApi
+    private http: HttpAdapter
   ) {
     //No mas de tres parametros. Caso contrario, mandar un lista
     this.id = id;
@@ -50,7 +54,9 @@ export class Student {
   }
 }
 
-export const gustavo = new Student(1, "Gustavo", 29, new CountriesApi());
+export const countriesApi = new CountriesApiAxios();
+export const countriesApiFetch = new CountriesApiFetch();
+export const gustavo = new Student(1, "Gustavo", 29, countriesApi);
 // gustavo.isValid;
 // // console.log("🚀 ~ gustavo:", await gustavo.getScore());
 // gustavo.getScore().then((score: number) => {
@@ -59,4 +65,4 @@ export const gustavo = new Student(1, "Gustavo", 29, new CountriesApi());
 // gustavo.setAge = 30;
 // console.log("🚀 ~ gustavo:", gustavo);
 //gustavo.joinClass();
-console.log(await gustavo.getAllCountries());
+console.log(gustavo.getCountries());
