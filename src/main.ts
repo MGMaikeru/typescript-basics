@@ -2,6 +2,7 @@ import "./style.css";
 //import { studentsIds, students } from "./objects/objects";
 // import { name, age, id,  } from "./types-basic/type-basics";
 import { gustavo } from "./classes/classes";
+//import { gustavo } from "./classes/classes-minify";
 
 //type-basics.ts
 // document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
@@ -18,5 +19,5 @@ import { gustavo } from "./classes/classes";
 // `;
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-    <h1>Hello ${gustavo.getAge}</h1>
+    <h1>Hello ${gustavo.name}</h1>
 `;
